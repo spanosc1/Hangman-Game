@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movies Hangman</title>
+	<link href='https://fonts.googleapis.com/css?family=Bilbo+Swash+Caps' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+	<header>
+		<div class="header">
+			<h1>Hangman: Movies</h1>
+		</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5" id="answerimage">
+				<div id="answer">
+					<p id="question">?</p>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-5" id="playspace">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div>
+					<img src="assets/images/admitone.png" id="admitone">
+					<p id="any-key">Press any key to<br>get started!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var game = {
+			wins: 0,
+			currentWord: "",
+			under: [],
+			movies: ["shutter_island", "the_dark_knight", "man_of_steel", "the_silence_of_the_lambs", "star_wars", "captain_america", "titanic", "the_last_airbender", "skyfall", "jurassic_park", "goodfellas", "looper", "ghostbusters", "men_in_black", "pulp_fiction", "the_lion_king", "avatar"],
+			moviesDisplay: ["Shutter Island", "The Dark Knight", "Man of Steel", "The Silence of the Lambs", "Star Wars", "Captain America", "Titanic", "The Last Airbender", "Skyfall", "Jurassic Park", "Goodfellas", "Looper", "Ghostbusters", "Men in Black", "Pulp Fiction", "The Lion King", "Avatar"],
+			guessesRemaining: 10,
+			lettersGuessed: "",
+			movieNum: "",
+			movie: "",
+			found: false,
+			firstGame: true,
+			start : function(){
+        this.wins = 0;
+        this.firstGame = true;
+        this.newGame();
+      },
+      newGame : function(){
+      	if(!this.firstGame){
+      		var parent = document.getElementById("playspace");
+      		var child = document.getElementById("Under");
+      		parent.removeChild(child);
+      		var child = document.getElementById("wins");
+      		parent.removeChild(child);
+      		var child = document.getElementById("Guesses");
+      		parent.removeChild(child);
+      		var child = document.getElementById("Letters");
+      		parent.removeChild(child);
+      	}
+      	else{
+      		this.firstGame=false;
+      	}
+      	this.guessesRemaining = 10;
+        this.currentWord = this.getRandomMovie();
+        this.newWordDisplay(this.currentWord);
+      },
+      getRandomMovie : function(){
+      	this.movieNum = Math.floor(Math.random() * (this.movies.length - 1));
+      	this.movie = this.movies[this.movieNum];
+      	return this.movie;
+      },
+      newWordDisplay : function(word){
+	      under = [];
+	      for(var i = 0; i < word.length; i++)
+	      {
+	      	if(word[i]=="_")
+	      	{
+	      		this.under.push(" - ");
+	      	}
+	      	else
+	      	{
+	      		this.under.push(" _");
+	      	}
+	      }
+		    var html = '<p class="display-text" id="Under">Current Word:<br><br>'
+		    html = html + this.under + '</p><p class="display-text" id="wins">Wins: ' + this.wins + '</p><p class="display-text" id="Guesses">Guesses Remaining: ' + this.guessesRemaining + '</p><p class="display-text" id="Letters">Letters Guessed: <br>' + this.lettersGuessed + '<br></p>';
+		    var el = document.getElementById("playspace");
+		    el.innerHTML = html;
+	      this.updateUnder(this.under);
+      },
+      guess : function(letter){
+      	if(this.guessesRemaining==1)
+      	{
+	      	this.lose();
+	      }
+	      else
+	      {
+	      	if(this.lettersGuessed=="")
+	      	{
+	      		this.lettersGuessed += letter;
+	      	}
+	      	else
+	      	{
+	      		this.lettersGuessed = this.lettersGuessed + ', ' + letter;
+	      	}
+	      	for(var i = 0; i < this.currentWord.length; i++)
+	      	{
+	      		if(letter == this.currentWord[i])
+	      		{
+	      			this.found=true;
+	      			this.under[i]=letter;
+	      			this.updateUnder(this.under);
+	      		}
+	      	}
+	      	if(!this.found){
+	      		this.guessesRemaining--;
+	      		this.updateGuessesRemaining(this.guessesRemaining);
+	      	}
+	      	this.updateLettersGuessed(this.lettersGuessed);
+	      	var sum = 0;
+	      	for(var j = 0; j < this.currentWord.length; j++)
+	      	{
+	      		if(this.under[j] == this.currentWord[j] || this.under[j] == " - ")
+	      		{
+	      			sum++;
+	      		}
+	      	}
+	      	console.log(this.under);
+	      	console.log(this.movie);
+	      	console.log(sum);
+	      	if(sum == this.currentWord.length)
+	      	{
+	      		this.win();
+	      	}
+	      }
+	      this.found = false;
+      },
+      updateUnder : function(newUnder){
+      	var underEl = document.getElementById("Under");
+      	underEl.innerHTML = 'Current Word:<br><br>' + newUnder;
+      },
+      updateGuessesRemaining: function(newGuessesRemaining){
+      	var guessesEl = document.getElementById("Guesses");
+      	guessesEl.innerHTML = 'Guesses Remaining: ' + newGuessesRemaining;
+      },
+      updateLettersGuessed: function(newLettersGuessed){
+      	var lettersEl = document.getElementById("Letters");
+      	lettersEl.innerHTML = 'Letters Guessed: <br>' + newLettersGuessed;
+      },
+      updateWins: function(newWins){
+      	var winsEl = document.getElementById("wins");
+      	winsEl.innerHTML = 'Wins: ' + newWins;
+      },
+      win: function(){
+      	var parent = document.getElementById("answer");
+      	var child = document.getElementById("question");
+      	parent.removeChild(child);
+      	var image = '<img src="assets/images/placeholder.jpg" id="result">'
+      	parent.innerHTML = image;
+      	this.wins++;
+      	this.updateWins(this.wins);
+      },
+      lose: function(){
+      	alert("You lose!");
+      }
+		};
+		document.onload = game.start();
+		document.onkeyup = function(event) {
+				var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+				game.guess(userGuess);
+				console.log(userGuess);
+		}
+	</script>
+</body>
+</html>

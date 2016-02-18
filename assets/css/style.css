@@ -1,0 +1,75 @@
+body {
+	background-color: black;
+}
+
+header {
+	background-image: url("../images/film.png");
+	height: 224px;
+}
+
+h1 {
+	font-family: 'Bilbo Swash Caps', cursive;
+	text-align: center;
+	color: #1791E5;
+	font-size: 100px;
+	padding: 60px;
+}
+
+.col-md-5 {
+	background-color: gray;
+	height: 350px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: dotted thick white;
+}
+
+#playspace {
+	background-color: black;
+
+}
+
+#admitone {
+	width: 300px;
+	height: auto;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#any-key {
+	text-align: center;
+	margin-top: -110px;
+	font-size: 35px;
+	font-family: 'Bilbo Swash Caps', cursive;
+	font-weight: bold;
+}
+
+#answer {
+	margin-top: 20px;
+	height: 300px;
+	width: 200px;
+	background-color: black;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#result {
+	height: 300px;
+	width: 200px;
+}
+
+#question {
+	font-family: 'Bilbo Swash Caps', cursive;
+	font-weight: bold;
+	font-size: 100px;
+	color: white;
+	text-align: center;
+	padding-top: 100px;
+}
+
+.display-text {
+	font-family: 'Bilbo Swash Caps', cursive;
+	font-size: 30px;
+	color: white;
+	padding: 10px;
+}
