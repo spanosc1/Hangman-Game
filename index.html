@@ -45,6 +45,7 @@
 			lettersGuessed: "",
 			movieNum: "",
 			movie: "",
+			movieDisplay: "",
 			found: false,
 			firstGame: true,
 			start : function(){
@@ -89,11 +90,16 @@
 	      		this.under.push(" _");
 	      	}
 	      }
+	      for(var j = 0; j < this.under.length; j++)
+	      {
+	      	this.movieDisplay = this.movieDisplay + this.under[j] + " ";
+	      }
+	      console.log(this.movieDisplay);
 		    var html = '<p class="display-text" id="Under">Current Word:<br><br>'
-		    html = html + this.under + '</p><p class="display-text" id="wins">Wins: ' + this.wins + '</p><p class="display-text" id="Guesses">Guesses Remaining: ' + this.guessesRemaining + '</p><p class="display-text" id="Letters">Letters Guessed: <br>' + this.lettersGuessed + '<br></p>';
+		    html = html + this.movieDisplay + '</p><p class="display-text" id="wins">Wins: ' + this.wins + '</p><p class="display-text" id="Guesses">Guesses Remaining: ' + this.guessesRemaining + '</p><p class="display-text" id="Letters">Letters Guessed: <br>' + this.lettersGuessed + '<br></p>';
 		    var el = document.getElementById("playspace");
 		    el.innerHTML = html;
-	      this.updateUnder(this.under);
+	      this.updateUnder(this.movieDisplay);
       },
       guess : function(letter){
       	if(this.guessesRemaining==1)
@@ -132,7 +138,7 @@
 	      			sum++;
 	      		}
 	      	}
-	      	console.log(this.under);
+	      	console.log(this.movieDisplay);
 	      	console.log(this.movie);
 	      	console.log(sum);
 	      	if(sum == this.currentWord.length)
@@ -144,7 +150,12 @@
       },
       updateUnder : function(newUnder){
       	var underEl = document.getElementById("Under");
-      	underEl.innerHTML = 'Current Word:<br><br>' + newUnder;
+      	this.movieDisplay = "";
+      	for(var j = 0; j < newUnder.length; j++)
+	      {
+	      	this.movieDisplay = this.movieDisplay + newUnder[j] + " ";
+	      }
+      	underEl.innerHTML = 'Current Word:<br><br>' + this.movieDisplay;
       },
       updateGuessesRemaining: function(newGuessesRemaining){
       	var guessesEl = document.getElementById("Guesses");
