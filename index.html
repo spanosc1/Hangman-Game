@@ -17,7 +17,9 @@
 		<div class="row">
 			<div class="col-md-5" id="answerimage">
 				<div id="answer">
-					<p id="question">?</p>
+				</div>
+				<div class="display-text">
+					<p id="movie"></p>
 				</div>
 			</div>
 			<div class="col-md-2"></div>
@@ -54,6 +56,11 @@
         this.newGame();
       },
       newGame : function(){
+      	var parent = document.getElementById("answer");
+      	var image = '<img src="assets/images/placeholder.png" id="result">';
+      	var answer = document.getElementById("movie");
+      	answer.innerHTML = "";
+      	parent.innerHTML = image;
       	this.guessesRemaining = 10;
       	this.lettersGuessed = "";
       	this.under = [];
@@ -161,10 +168,17 @@
       	winsEl.innerHTML = 'Wins: ' + newWins;
       },
       win: function(){
-      	var image = '<img src="assets/images/placeholder.jpg" id="result">'
+      	var parent = document.getElementById("answer");
+      	var movie = document.getElementById("movie");
+      	var moviePic = ""
+      	moviePic = moviePic + this.movies[this.movieNum] + ".jpg";
+      	var image = '<img src="assets/images/' + moviePic + ' id="result">';
+      	var display = this.moviesDisplay[this.movieNum];
       	parent.innerHTML = image;
+      	movie.innerHTML = display;
       	this.wins++;
       	this.updateWins(this.wins);
+      	alert("You win!");
       	game.newGame();
       },
       lose: function(){

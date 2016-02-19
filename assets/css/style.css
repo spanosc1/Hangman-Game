@@ -5,6 +5,7 @@ body {
 header {
 	background-image: url("../images/film.png");
 	height: 224px;
+	margin-bottom: 20px;
 }
 
 h1 {
@@ -45,7 +46,7 @@ h1 {
 }
 
 #answer {
-	margin-top: 20px;
+	margin-top: 5px;
 	height: 300px;
 	width: 200px;
 	background-color: black;
@@ -72,4 +73,10 @@ h1 {
 	font-size: 30px;
 	color: white;
 	padding: 10px;
+}
+
+#movie {
+	text-align: center;
+	color: black;
+	margin-bottom: 3px;
 }
