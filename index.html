@@ -54,23 +54,15 @@
         this.newGame();
       },
       newGame : function(){
-      	if(!this.firstGame){
-      		var parent = document.getElementById("playspace");
-      		var child = document.getElementById("Under");
-      		parent.removeChild(child);
-      		var child = document.getElementById("wins");
-      		parent.removeChild(child);
-      		var child = document.getElementById("Guesses");
-      		parent.removeChild(child);
-      		var child = document.getElementById("Letters");
-      		parent.removeChild(child);
-      	}
-      	else{
-      		this.firstGame=false;
-      	}
       	this.guessesRemaining = 10;
+      	this.lettersGuessed = "";
+      	this.under = [];
+      	this.currentWord = "";
+      	this.movieNum = "";
+      	this.movie = "";
+      	this.movieDisplay = "";
         this.currentWord = this.getRandomMovie();
-        this.newWordDisplay(this.currentWord);
+      	this.newWordDisplay(this.currentWord);
       },
       getRandomMovie : function(){
       	this.movieNum = Math.floor(Math.random() * (this.movies.length - 1));
@@ -94,7 +86,6 @@
 	      {
 	      	this.movieDisplay = this.movieDisplay + this.under[j] + " ";
 	      }
-	      console.log(this.movieDisplay);
 		    var html = '<p class="display-text" id="Under">Current Word:<br><br>'
 		    html = html + this.movieDisplay + '</p><p class="display-text" id="wins">Wins: ' + this.wins + '</p><p class="display-text" id="Guesses">Guesses Remaining: ' + this.guessesRemaining + '</p><p class="display-text" id="Letters">Letters Guessed: <br>' + this.lettersGuessed + '<br></p>';
 		    var el = document.getElementById("playspace");
@@ -170,16 +161,15 @@
       	winsEl.innerHTML = 'Wins: ' + newWins;
       },
       win: function(){
-      	var parent = document.getElementById("answer");
-      	var child = document.getElementById("question");
-      	parent.removeChild(child);
       	var image = '<img src="assets/images/placeholder.jpg" id="result">'
       	parent.innerHTML = image;
       	this.wins++;
       	this.updateWins(this.wins);
+      	game.newGame();
       },
       lose: function(){
       	alert("You lose!");
+      	game.newGame();
       }
 		};
 		document.onload = game.start();
