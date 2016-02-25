@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -41,13 +42,14 @@
 			wins: 0,
 			currentWord: "",
 			under: [],
-			movies: ["shutter_island", "the_dark_knight", "man_of_steel", "the_silence_of_the_lambs", "star_wars", "captain_america", "titanic", "the_last_airbender", "skyfall", "jurassic_park", "goodfellas", "looper", "ghostbusters", "men_in_black", "pulp_fiction", "the_lion_king", "avatar"],
-			moviesDisplay: ["Shutter Island", "The Dark Knight", "Man of Steel", "The Silence of the Lambs", "Star Wars", "Captain America", "Titanic", "The Last Airbender", "Skyfall", "Jurassic Park", "Goodfellas", "Looper", "Ghostbusters", "Men in Black", "Pulp Fiction", "The Lion King", "Avatar"],
+			movies: ["avatar", "the_dark_knight", "man_of_steel", "the_silence_of_the_lambs", "star_wars", "captain_america", "titanic", "the_last_airbender", "skyfall", "jurassic_park", "goodfellas", "looper", "ghostbusters", "men_in_black", "pulp_fiction", "the_lion_king", "shutter_island"],
+			moviesDisplay: ["Avatar", "The Dark Knight", "Man of Steel", "The Silence of the Lambs", "Star Wars", "Captain America", "Titanic", "The Last Airbender", "Skyfall", "Jurassic Park", "Goodfellas", "Looper", "Ghostbusters", "Men in Black", "Pulp Fiction", "The Lion King", "Shutter Island"],
 			guessesRemaining: 10,
 			lettersGuessed: "",
 			movieNum: "",
 			movie: "",
 			movieDisplay: "",
+			image: "",
 			found: false,
 			firstGame: true,
 			start : function(){
@@ -56,11 +58,10 @@
         this.newGame();
       },
       newGame : function(){
-      	var parent = document.getElementById("answer");
-      	var image = '<img src="assets/images/placeholder.png" id="result">';
+      	$("#answer").html('<img src="assets/images/placeholder.png" id="result">');
       	var answer = document.getElementById("movie");
       	answer.innerHTML = "";
-      	parent.innerHTML = image;
+      	parent.innerHTML = this.image;
       	this.guessesRemaining = 10;
       	this.lettersGuessed = "";
       	this.under = [];
@@ -168,19 +169,14 @@
       	winsEl.innerHTML = 'Wins: ' + newWins;
       },
       win: function(){
-      	var parent = document.getElementById("answer");
-      	var movie = document.getElementById("movie");
-      	var moviePic = ""
-      	moviePic = moviePic + this.movies[this.movieNum] + ".jpg";
-      	var image = '<img src="assets/images' + moviePic + ' id="result">';
+      	var movieName = document.getElementById("movie");
+      	var poster = this.movieNum;
       	var display = this.moviesDisplay[this.movieNum];
-      	parent.innerHTML = image;
-      	movie.innerHTML = display;
-      	console.log(image);
+      	movieName.innerHTML = display;
       	this.wins++;
       	this.updateWins(this.wins);
       	alert("You win!");
-      	game.newGame();
+      	game.newGame()
       },
       lose: function(){
       	alert("You lose!");
