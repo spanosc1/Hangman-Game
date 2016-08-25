@@ -18,7 +18,7 @@ var game = {
       },
       newGame : function(){
       	var parent = document.getElementById("answer");
-      	var image = '<img src="assets/images/placeholder.png" id="result">';
+      	var image = '<img src="assets/images/placeholder.PNG" id="result">';
       	var answer = document.getElementById("movie");
       	answer.innerHTML = "";
       	parent.innerHTML = image;
